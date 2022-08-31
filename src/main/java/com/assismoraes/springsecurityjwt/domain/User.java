@@ -15,9 +15,9 @@ public class User {
 
     private String password;
 
-    private List<UserRole> userRoles;
+    private List<UserRoleEnum> userRoles;
 
-    public User(Long id, String name, String username, String password, List<UserRole> userRoles) {
+    public User(Long id, String name, String username, String password, List<UserRoleEnum> userRoles) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -25,39 +25,13 @@ public class User {
         this.userRoles = userRoles;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() { return password; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<UserRole> getRoles() { return userRoles; }
-
-    public void setRoles(List<UserRole> userRoles) { this.userRoles = userRoles; }
+    public List<UserRoleEnum> getRoles() { return userRoles; }
 
     public UserDetails toUserDetails() {
         return new UserDetail(this);

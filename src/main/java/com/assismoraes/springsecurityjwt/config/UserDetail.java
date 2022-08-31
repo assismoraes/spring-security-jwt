@@ -1,10 +1,11 @@
 package com.assismoraes.springsecurityjwt.config;
 
-import com.assismoraes.springsecurityjwt.domain.UserRole;
 import com.assismoraes.springsecurityjwt.domain.User;
+import com.assismoraes.springsecurityjwt.domain.UserRoleEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,16 +15,20 @@ public class UserDetail implements UserDetails {
 
     private String password;
 
-    private List<UserRole> authorities;
+    private List<GrantedAuthority> authorities = new ArrayList<>();
 
     public UserDetail(User user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.authorities = user.getRoles();
+        for (UserRoleEnum ur: user.getRoles()) {
+            authorities.addAll(ur.permissions);
+        }
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { return authorities; }
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
     @Override
     public String getPassword() { return password; }

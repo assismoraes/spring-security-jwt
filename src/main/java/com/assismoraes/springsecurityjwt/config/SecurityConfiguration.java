@@ -1,6 +1,6 @@
 package com.assismoraes.springsecurityjwt.config;
 
-import com.assismoraes.springsecurityjwt.domain.RoleEnum;
+import com.assismoraes.springsecurityjwt.domain.UserPermissionEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,9 +47,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                    .antMatchers("/admin/**").hasAuthority(RoleEnum.ADMIN.name())
-                    .antMatchers("/manager/**").hasAuthority(RoleEnum.MANAGER.name())
-                    .antMatchers("/super-admin/**").hasAuthority(RoleEnum.SUPER_ADMIN.name())
+                    .antMatchers("/admin/**").hasAuthority(UserPermissionEnum.READ_ADMIN_HOME.getAuthority())
+                    .antMatchers("/manager/**").hasAuthority(UserPermissionEnum.READ_MANAGER_HOME.getAuthority())
+                    .antMatchers("/super-admin/**").hasAuthority(UserPermissionEnum.READ_SUPER_ADMIN_HOME.getAuthority())
                     .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         ;
